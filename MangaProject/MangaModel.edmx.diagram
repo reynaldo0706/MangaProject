@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f688a4817b90476f9d666966b94eb69a" Name="Diagram1" >
+        <EntityTypeShape EntityType="MangaModel.Manga" Width="1.5" PointX="5.625" PointY="0.875" />
+        <EntityTypeShape EntityType="MangaModel.Author" Width="1.5" PointX="3.125" PointY="0.75" />
+        <EntityTypeShape EntityType="MangaModel.Country" Width="1.5" PointX="3.125" PointY="4.25" />
+        <EntityTypeShape EntityType="MangaModel.Publisher" Width="1.5" PointX="8" PointY="0.75" />
+        <EntityTypeShape EntityType="MangaModel.Language" Width="1.5" PointX="5.625" PointY="4.25" />
+        <AssociationConnector Association="MangaModel.AuthorManga" />
+        <AssociationConnector Association="MangaModel.PublisherManga" />
+        <AssociationConnector Association="MangaModel.AuthorCountry" />
+        <AssociationConnector Association="MangaModel.PublisherCountry" />
+        <AssociationConnector Association="MangaModel.MangaLanguage" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

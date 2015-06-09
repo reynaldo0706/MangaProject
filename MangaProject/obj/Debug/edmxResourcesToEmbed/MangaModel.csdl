@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MangaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="MangaModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Mangas" EntityType="MangaModel.Manga" />
+    <EntitySet Name="Authors" EntityType="MangaModel.Author" />
+    <EntitySet Name="Countries" EntityType="MangaModel.Country" />
+    <EntitySet Name="Publishers" EntityType="MangaModel.Publisher" />
+    <EntitySet Name="Languages" EntityType="MangaModel.Language" />
+    <AssociationSet Name="AuthorManga" Association="MangaModel.AuthorManga">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Manga" EntitySet="Mangas" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherManga" Association="MangaModel.PublisherManga">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Manga" EntitySet="Mangas" />
+    </AssociationSet>
+    <AssociationSet Name="AuthorCountry" Association="MangaModel.AuthorCountry">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherCountry" Association="MangaModel.PublisherCountry">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="MangaLanguage" Association="MangaModel.MangaLanguage">
+      <End Role="Manga" EntitySet="Mangas" />
+      <End Role="Language" EntitySet="Languages" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Manga">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Description" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="DateTime" Name="PublishDate" Nullable="false" />
+    <Property Type="String" Name="Image" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Volume" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Authors" Relationship="MangaModel.AuthorManga" FromRole="Manga" ToRole="Author" />
+    <NavigationProperty Name="Publishers" Relationship="MangaModel.PublisherManga" FromRole="Manga" ToRole="Publisher" />
+    <NavigationProperty Name="Languages" Relationship="MangaModel.MangaLanguage" FromRole="Manga" ToRole="Language" />
+  </EntityType>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Description" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+    <Property Type="String" Name="Image" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Mangas" Relationship="MangaModel.AuthorManga" FromRole="Author" ToRole="Manga" />
+    <NavigationProperty Name="Country" Relationship="MangaModel.AuthorCountry" FromRole="Author" ToRole="Country" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Author" Relationship="MangaModel.AuthorCountry" FromRole="Country" ToRole="Author" />
+    <NavigationProperty Name="Publisher" Relationship="MangaModel.PublisherCountry" FromRole="Country" ToRole="Publisher" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Description" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Image" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Address1" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Address2" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <Property Type="String" Name="Address3" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Mangas" Relationship="MangaModel.PublisherManga" FromRole="Publisher" ToRole="Manga" />
+    <NavigationProperty Name="Country" Relationship="MangaModel.PublisherCountry" FromRole="Publisher" ToRole="Country" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" FixedLength="false" MaxLength="Max" Unicode="true" />
+    <NavigationProperty Name="Mangas" Relationship="MangaModel.MangaLanguage" FromRole="Language" ToRole="Manga" />
+  </EntityType>
+  <Association Name="AuthorManga">
+    <End Type="MangaModel.Author" Role="Author" Multiplicity="*" />
+    <End Type="MangaModel.Manga" Role="Manga" Multiplicity="*" />
+  </Association>
+  <Association Name="PublisherManga">
+    <End Type="MangaModel.Publisher" Role="Publisher" Multiplicity="*" />
+    <End Type="MangaModel.Manga" Role="Manga" Multiplicity="*" />
+  </Association>
+  <Association Name="AuthorCountry">
+    <End Type="MangaModel.Author" Role="Author" Multiplicity="1" />
+    <End Type="MangaModel.Country" Role="Country" Multiplicity="1" />
+  </Association>
+  <Association Name="PublisherCountry">
+    <End Type="MangaModel.Publisher" Role="Publisher" Multiplicity="1" />
+    <End Type="MangaModel.Country" Role="Country" Multiplicity="1" />
+  </Association>
+  <Association Name="MangaLanguage">
+    <End Type="MangaModel.Manga" Role="Manga" Multiplicity="*" />
+    <End Type="MangaModel.Language" Role="Language" Multiplicity="*" />
+  </Association>
+</Schema>

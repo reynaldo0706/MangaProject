@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MangaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MangaModelStoreContainer">
+    <EntitySet Name="Mangas" EntityType="MangaModel.Store.Mangas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Authors" EntityType="MangaModel.Store.Authors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Countries" EntityType="MangaModel.Store.Countries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Publishers" EntityType="MangaModel.Store.Publishers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Languages" EntityType="MangaModel.Store.Languages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuthorManga" EntityType="MangaModel.Store.AuthorManga" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PublisherManga" EntityType="MangaModel.Store.PublisherManga" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MangaLanguage" EntityType="MangaModel.Store.MangaLanguage" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_AuthorManga_Author" Association="MangaModel.Store.FK_AuthorManga_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="AuthorManga" EntitySet="AuthorManga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuthorManga_Manga" Association="MangaModel.Store.FK_AuthorManga_Manga">
+      <End Role="Manga" EntitySet="Mangas" />
+      <End Role="AuthorManga" EntitySet="AuthorManga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PublisherManga_Publisher" Association="MangaModel.Store.FK_PublisherManga_Publisher">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="PublisherManga" EntitySet="PublisherManga" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PublisherManga_Manga" Association="MangaModel.Store.FK_PublisherManga_Manga">
+      <End Role="Manga" EntitySet="Mangas" />
+      <End Role="PublisherManga" EntitySet="PublisherManga" />
+    </AssociationSet>
+    <AssociationSet Name="AuthorCountry" Association="MangaModel.Store.AuthorCountry">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherCountry" Association="MangaModel.Store.PublisherCountry">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Country" EntitySet="Countries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MangaLanguage_Manga" Association="MangaModel.Store.FK_MangaLanguage_Manga">
+      <End Role="Manga" EntitySet="Mangas" />
+      <End Role="MangaLanguage" EntitySet="MangaLanguage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MangaLanguage_Language" Association="MangaModel.Store.FK_MangaLanguage_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="MangaLanguage" EntitySet="MangaLanguage" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Mangas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PublishDate" Type="datetime" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Volume" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Authors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Countries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Publishers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address3" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuthorManga">
+    <Key>
+      <PropertyRef Name="Authors_Id" />
+      <PropertyRef Name="Mangas_Id" />
+    </Key>
+    <Property Name="Authors_Id" Type="int" Nullable="false" />
+    <Property Name="Mangas_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PublisherManga">
+    <Key>
+      <PropertyRef Name="Publishers_Id" />
+      <PropertyRef Name="Mangas_Id" />
+    </Key>
+    <Property Name="Publishers_Id" Type="int" Nullable="false" />
+    <Property Name="Mangas_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MangaLanguage">
+    <Key>
+      <PropertyRef Name="Mangas_Id" />
+      <PropertyRef Name="Languages_Id" />
+    </Key>
+    <Property Name="Mangas_Id" Type="int" Nullable="false" />
+    <Property Name="Languages_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="AuthorCountry">
+    <End Role="Author" Type="MangaModel.Store.Authors" Multiplicity="*" />
+    <End Role="Country" Type="MangaModel.Store.Countries" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Author">
+        <PropertyRef Name="Country_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PublisherCountry">
+    <End Role="Publisher" Type="MangaModel.Store.Publishers" Multiplicity="*" />
+    <End Role="Country" Type="MangaModel.Store.Countries" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Publisher">
+        <PropertyRef Name="Country_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuthorManga_Author">
+    <End Role="Author" Type="MangaModel.Store.Authors" Multiplicity="1" />
+    <End Role="AuthorManga" Type="MangaModel.Store.AuthorManga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuthorManga">
+        <PropertyRef Name="Authors_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuthorManga_Manga">
+    <End Role="AuthorManga" Type="MangaModel.Store.AuthorManga" Multiplicity="*" />
+    <End Role="Manga" Type="MangaModel.Store.Mangas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Manga">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuthorManga">
+        <PropertyRef Name="Mangas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PublisherManga_Publisher">
+    <End Role="Publisher" Type="MangaModel.Store.Publishers" Multiplicity="1" />
+    <End Role="PublisherManga" Type="MangaModel.Store.PublisherManga" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PublisherManga">
+        <PropertyRef Name="Publishers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PublisherManga_Manga">
+    <End Role="PublisherManga" Type="MangaModel.Store.PublisherManga" Multiplicity="*" />
+    <End Role="Manga" Type="MangaModel.Store.Mangas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Manga">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PublisherManga">
+        <PropertyRef Name="Mangas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MangaLanguage_Manga">
+    <End Role="Manga" Type="MangaModel.Store.Mangas" Multiplicity="1" />
+    <End Role="MangaLanguage" Type="MangaModel.Store.MangaLanguage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manga">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MangaLanguage">
+        <PropertyRef Name="Mangas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MangaLanguage_Language">
+    <End Role="MangaLanguage" Type="MangaModel.Store.MangaLanguage" Multiplicity="*" />
+    <End Role="Language" Type="MangaModel.Store.Languages" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MangaLanguage">
+        <PropertyRef Name="Languages_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
